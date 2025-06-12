@@ -6,7 +6,7 @@ const {
 } = require('./db')
 
 const init = async () => {
-    // MAKE CONNECTIONa TO DB
+    // MAKE CONNECTION TO DB
     await client.connect()
     console.log('SUCCESS - Connected to DATABASE.')
 

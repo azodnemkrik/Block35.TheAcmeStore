@@ -6,6 +6,9 @@ const uuidv4 = v4
 const seed = async () => {
     // CREATE TABLES
     const SQL = `
+        DROP TABLE IF EXISTS favorites;
+        DROP TABLE IF EXISTS products;
+        DROP TABLE IF EXISTS users;
         CREATE TABLE users(
             id UUID PRIMARY KEY,
             username VARCHAR(100) UNIQUE NOT NULL,
