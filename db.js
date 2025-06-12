@@ -4,6 +4,7 @@ const {v4} = require('uuid')
 const uuidv4 = v4
 const bcrypt = require('bcrypt')
 
+//CREATE
 const createUser = async (user) => {
     // Check for invalid values (combination of 'spaces' used as characters. We don't want that. )
     if(!user.username.trim() || !user.password.trim()){
@@ -11,7 +12,7 @@ const createUser = async (user) => {
     }
 
     // Salt Bae your Passwords with bcrypt.hash()
-    user.password = bcrypt.hash(user.password, 6)
+    user.password = await bcrypt.hash(user.password, 6)
 
     const SQL = `
         INSERT INTO users
