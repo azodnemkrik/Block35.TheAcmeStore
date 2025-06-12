@@ -1,5 +1,7 @@
 const pg = require('pg')
 const client = new pg.Client('postgres://localhost/the_acme_store' || process.env.DATABASE_URL)
+const {v4} = require('uuid')
+const uuidv4 = v4
 
 const seed = () => {
     // CREATE TABLES
@@ -16,7 +18,12 @@ const seed = () => {
         CREATE TABLE favorites(
             id UUID PRIMARY KEY,
             product_id UUID REFERENCES products(id) NOT NULL,
-            user_id UUID REFERENCES users(id) NOT NULL
+            user_id UUID REFERENCES users(id) NOT NULL,
+            CONSTRAINT productID_and_userID UNIQUE(product_id, user_id)
         );
     `
+}
+
+module.exports = {
+    seed
 }
