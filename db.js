@@ -49,6 +49,35 @@ const createFavorite = async (favorite) => {
     return response.rows[0]
 }
 
+const fetchUsers = async () => {
+    const SQL = `
+        SELECT *
+        FROM users
+    `
+    const response = await client.query(SQL)
+    return response.rows
+}
+
+const fetchProducts = async () => {
+    const SQL = `
+        SELECT *
+        FROM products
+    `
+    const response = await client.query(SQL)
+    return response.rows
+}
+
+const fetchFavorites = async () => {
+    const SQL = `
+        SELECT *
+        FROM favorites
+    `
+    const response = await client.query(SQL)
+    return response.rows
+}
+
+
+
 const seed = async () => {
     // CREATE TABLES
     const SQL = `

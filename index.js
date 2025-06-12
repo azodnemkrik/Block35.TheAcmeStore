@@ -5,6 +5,7 @@ const {
     client
 } = require('./db')
 app.use(express.json())
+app.use('/api', require('./api.js'))
 
 const init = async () => {
     // MAKE CONNECTION TO DB
