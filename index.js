@@ -4,6 +4,7 @@ const {
     seed,
     client
 } = require('./db')
+app.use(express.json())
 
 const init = async () => {
     // MAKE CONNECTION TO DB
