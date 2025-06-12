@@ -1,0 +1,26 @@
+{
+  "name": "block35.theacmestore",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azodnemkrik/Block35.TheAcmeStore.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azodnemkrik/Block35.TheAcmeStore/issues"
+  },
+  "homepage": "https://github.com/azodnemkrik/Block35.TheAcmeStore#readme",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
