@@ -7,6 +7,7 @@ const {
     createUser,
     createProduct,
     createFavorite,
+    destroyFavorites
 } = require('./db.js')
 
 // CREATE
@@ -62,5 +63,14 @@ app.get('/users/:id/favorites' , async (req,res,next) => {
 
 // UPDATE (NONE)
 // DELETE
+app.delete('/users/:userId/favorites/:id' , async (req,res,next) => {
+    try {
+        await destroyFavorites(req.params)
+        res.sendStatus(204)
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 module.exports = app
