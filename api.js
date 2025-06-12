@@ -52,13 +52,14 @@ app.get('/products' , async (req,res,next) => {
     }
 })
 
-app.get('/favorites' , async (req,res,next) => {
+app.get('/users/:id/favorites' , async (req,res,next) => {
     try {
-        res.send(await fetchFavorites())
+        res.send(await fetchFavorites(req.params))
     } catch (error) {
         next(error)
     }
 })
+
 // UPDATE (NONE)
 // DELETE
 

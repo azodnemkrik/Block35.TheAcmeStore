@@ -68,13 +68,14 @@ const fetchProducts = async () => {
     return response.rows
 }
 
-const fetchFavorites = async () => {
+const fetchFavorites = async (favorite) => {
     const SQL = `
         SELECT *
         FROM favorites
+        WHERE user_id = $1
     `
-    const response = await client.query(SQL)
-    return response.rows
+    const response = await client.query(SQL, [favorite.id])
+    return response.rows[0]
 }
 
 // UPDATE (NONE)
