@@ -2,6 +2,7 @@ const pg = require('pg')
 const client = new pg.Client('postgres://localhost/the_acme_store' || process.env.DATABASE_URL)
 const {v4} = require('uuid')
 const uuidv4 = v4
+const bcrypt = require('bcrypt')
 
 const createUser = async (user) => {
     // Check for invalid values (combination of 'spaces' used as characters. We don't want that. )
@@ -46,7 +47,17 @@ const seed = async () => {
     `
     await client.query(SQL)
     
-    console.log('SUCCESS – Created Tables')
+    // CREATE FILLER DATA
+    const [kirk, kathy, mae, devin, haleigh, meatball] = await Promise.all([
+        createUser({username: "kirkmendoza", password: "1111"}),
+        createUser({username: "kathleenmendoza", password: "2222"}),
+        createUser({username: "maeserenitymendoza", password: "3333"}),
+        createUser({username: "devinhalicki", password: "4444"}),
+        createUser({username: "haleighhalicki", password: "5555"}),
+        createUser({username: "meatball", password: "6666"}),
+    ])
+
+    console.log('SUCCESS – Created tables and seeded data.')
 }
 
 
