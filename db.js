@@ -151,4 +151,7 @@ module.exports = {
     fetchUsers,
     fetchProducts,
     fetchFavorites,
+    createUser,
+    createProduct,
+    createFavorite,
 }
