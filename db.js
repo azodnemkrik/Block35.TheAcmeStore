@@ -24,6 +24,17 @@ const createUser = async (user) => {
     return response.rows[0]
 }
 
+const createProduct = async (product) => {
+    const SQL = `
+        INSERT INTO products
+        (id, name)
+        VALUES
+        ($1, $2)
+    `
+    const response = await client.query(SQL , [uuidv4(), product.name])
+    return response.rows[0]
+}
+
 const seed = async () => {
     // CREATE TABLES
     const SQL = `
@@ -48,7 +59,7 @@ const seed = async () => {
     `
     await client.query(SQL)
     
-    // CREATE FILLER DATA
+    // CREATE FILLER DATA - USERS
     const [kirk, kathy, mae, devin, haleigh, meatball] = await Promise.all([
         createUser({username: "kirkmendoza", password: "1111"}),
         createUser({username: "kathleenmendoza", password: "2222"}),
@@ -56,6 +67,17 @@ const seed = async () => {
         createUser({username: "devinhalicki", password: "4444"}),
         createUser({username: "haleighhalicki", password: "5555"}),
         createUser({username: "meatball", password: "6666"}),
+    ])
+
+    // CREATE FILLER DATA - PRODUCTS
+    const [] = await Promise.all([
+        createProduct({name: "Ruler"}),
+        createProduct({name: "Paper"}),
+        createProduct({name: "Pen"}),
+        createProduct({name: "Pencil"}),
+        createProduct({name: "Paper Clip"}),
+        createProduct({name: "Mug"}),
+        createProduct({name: "Snacks"}),
     ])
 
     console.log('SUCCESS – Created tables and seeded data.')
