@@ -49,6 +49,7 @@ const createFavorite = async (favorite) => {
     return response.rows[0]
 }
 
+// READ
 const fetchUsers = async () => {
     const SQL = `
         SELECT *
@@ -76,7 +77,8 @@ const fetchFavorites = async () => {
     return response.rows
 }
 
-
+// UPDATE (NONE)
+// DELETE
 
 const seed = async () => {
     // CREATE TABLES
@@ -145,5 +147,8 @@ const seed = async () => {
 
 module.exports = {
     seed,
-    client
+    client,
+    fetchUsers,
+    fetchProducts,
+    fetchFavorites,
 }
