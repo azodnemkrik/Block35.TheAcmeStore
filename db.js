@@ -75,7 +75,7 @@ const fetchFavorites = async (favorite) => {
         WHERE user_id = $1
     `
     const response = await client.query(SQL, [favorite.id])
-    return response.rows[0]
+    return response.rows
 }
 
 // UPDATE (NONE)
