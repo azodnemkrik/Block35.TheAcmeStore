@@ -3,7 +3,7 @@ const client = new pg.Client('postgres://localhost/the_acme_store' || process.en
 const {v4} = require('uuid')
 const uuidv4 = v4
 
-const seed = () => {
+const seed = async () => {
     // CREATE TABLES
     const SQL = `
         CREATE TABLE users(
@@ -22,8 +22,12 @@ const seed = () => {
             CONSTRAINT productID_and_userID UNIQUE(product_id, user_id)
         );
     `
+    await client.query(SQL)
+    console.log('SUCCESS – Created Tables')
 }
 
+
 module.exports = {
-    seed
+    seed,
+    client
 }

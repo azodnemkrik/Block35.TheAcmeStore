@@ -1,11 +1,22 @@
 const express = require('express')
 const app = express()
+const {
+    seed,
+    client
+} = require('./db')
 
-const init = () => {
+const init = async () => {
+    // MAKE CONNECTIONa TO DB
+    await client.connect()
+    console.log('SUCCESS - Connected to DATABASE.')
 
-    const PORT = 3000
+    // MAKE TABLES
+    await seed()
+
+    // CREATE PORT & LISTEN
+    const PORT = 3000 || process.env.PORT
     app.listen(PORT, () => {
-        console.log(`Listening at PORT: ${PORT}`)
+        console.log(`SUCCESS - Listening at PORT: ${PORT}`)
     })
 
 }
