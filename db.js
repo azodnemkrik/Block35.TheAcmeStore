@@ -19,6 +19,7 @@ const createUser = async (user) => {
         (id, username, password)
         VALUES
         ($1, $2, $3)
+        RETURNING *
     `
     const response = await client.query(SQL , [uuidv4(), user.username, user.password])
     return response.rows[0]
@@ -30,8 +31,21 @@ const createProduct = async (product) => {
         (id, name)
         VALUES
         ($1, $2)
+        RETURNING *
     `
     const response = await client.query(SQL , [uuidv4(), product.name])
+    return response.rows[0]
+}
+
+const createFavorite = async (favorite) => {
+    const SQL = `
+        INSERT INTO favorites
+        (id, product_id, user_id)
+        VALUES
+        ($1, $2, $3)
+        RETURNING *
+    `
+    const response = await client.query(SQL , [uuidv4(), favorite.product_id, favorite.user_id])
     return response.rows[0]
 }
 
@@ -48,7 +62,7 @@ const seed = async () => {
         );
         CREATE TABLE products(
             id UUID PRIMARY KEY,
-            name VARCHAR(100) NOT NULL
+            name VARCHAR(100) UNIQUE NOT NULL
         );
         CREATE TABLE favorites(
             id UUID PRIMARY KEY,
@@ -70,7 +84,7 @@ const seed = async () => {
     ])
 
     // CREATE FILLER DATA - PRODUCTS
-    const [] = await Promise.all([
+    const [ruler, paper, pen, pencil, paperClip, mug, snacks] = await Promise.all([
         createProduct({name: "Ruler"}),
         createProduct({name: "Paper"}),
         createProduct({name: "Pen"}),
@@ -78,6 +92,22 @@ const seed = async () => {
         createProduct({name: "Paper Clip"}),
         createProduct({name: "Mug"}),
         createProduct({name: "Snacks"}),
+    ])
+
+    // CREATE FILLER DATA - FAVORITES
+    const [] = await Promise.all([
+        createFavorite({product_id: paper.id, user_id: kirk.id}),
+        createFavorite({product_id: ruler.id, user_id: kirk.id}),
+        createFavorite({product_id: ruler.id, user_id: mae.id}),
+        createFavorite({product_id: snacks.id, user_id: devin.id}),
+        createFavorite({product_id: snacks.id, user_id: haleigh.id}),
+        createFavorite({product_id: snacks.id, user_id: kathy.id}),
+        createFavorite({product_id: snacks.id, user_id: kirk.id}),
+        createFavorite({product_id: snacks.id, user_id: mae.id}),
+        createFavorite({product_id: snacks.id, user_id: meatball.id}),
+        createFavorite({product_id: paperClip.id, user_id: meatball.id}),
+        createFavorite({product_id: pencil.id, user_id: kathy.id}),
+        createFavorite({product_id: pen.id, user_id: kathy.id}),
     ])
 
     console.log('SUCCESS – Created tables and seeded data.')
