@@ -3,6 +3,16 @@ const client = new pg.Client('postgres://localhost/the_acme_store' || process.en
 const {v4} = require('uuid')
 const uuidv4 = v4
 
+const createUser = async (user) => {
+    const SQL = `
+        INSERT INTO users
+        (id, username, password)
+        VALUES
+        ($1, $2, $3)
+    `
+    const response = await client.query(SQL , [uuidv4(), user.username, user.password])
+}
+
 const seed = async () => {
     // CREATE TABLES
     const SQL = `
