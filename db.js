@@ -4,6 +4,14 @@ const {v4} = require('uuid')
 const uuidv4 = v4
 
 const createUser = async (user) => {
+    // Check for invalid values (combination of 'spaces' used as characters. We don't want that. )
+    if(!user.username.trim() || !user.password.trim()){
+        throw Error('Sorry, you must have a valid username and password.')
+    }
+
+    // Salt Bae your Passwords with bcrypt.hash()
+    user.password = bcrypt.hash(user.password, 6)
+
     const SQL = `
         INSERT INTO users
         (id, username, password)
