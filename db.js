@@ -19,6 +19,7 @@ const createUser = async (user) => {
         ($1, $2, $3)
     `
     const response = await client.query(SQL , [uuidv4(), user.username, user.password])
+    return response.rows[0]
 }
 
 const seed = async () => {
@@ -44,6 +45,7 @@ const seed = async () => {
         );
     `
     await client.query(SQL)
+    
     console.log('SUCCESS – Created Tables')
 }
 
